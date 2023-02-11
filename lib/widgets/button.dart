@@ -1,3 +1,4 @@
+import 'package:calc/view_model/calculator.dart';
 import 'package:calc/view_model/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,18 +9,19 @@ import '../assets/theme_data.dart';
 
 class CustomButton extends StatelessWidget {
   Color color;
-  Function() fun;
+
   String text;
 
-  CustomButton(
-      {required this.color, required this.fun, required this.text, super.key});
+  CustomButton({required this.color, required this.text, super.key});
 
   @override
   Widget build(BuildContext context) {
     SettingVM settingProvider = Provider.of(context);
-
+    CalculatorVM calcProvider = Provider.of(context);
     return InkWell(
-      onTap: fun,
+      onTap: () {
+        calcProvider.addToExpression(text);
+      },
       child: Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.5.w),

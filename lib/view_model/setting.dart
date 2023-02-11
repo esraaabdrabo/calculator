@@ -8,10 +8,10 @@ class SettingVM extends ChangeNotifier {
   void changeCurrentMode() {
     if (currentMode == darkModeKey) {
       currentMode = lightModeKey;
-      currentThemeData = DarkModeData();
+      currentThemeData = LightModeData();
     } else {
       currentMode = darkModeKey;
-      currentThemeData = LightModeData();
+      currentThemeData = DarkModeData();
     }
     notifyListeners();
   }
