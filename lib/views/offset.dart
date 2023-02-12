@@ -44,7 +44,7 @@ class _AnimateOffsetState extends State<AnimateOffset>
 
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _animationOffest = Tween<Offset>(begin: widget.begin, end: widget.end)
-        .animate(_controller);
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
     getTikerFuture();
   }
 

@@ -8,12 +8,14 @@ class CalculatorVM extends ChangeNotifier {
   String secondNum = '';
   String operation = '';
   String result = '';
-  List<String> opertaions = ['+', '-', 'X', '/', '%', '√'];
+  List<String> opertaions = ['+', '-', 'X', '/', '%', '√', '^'];
   void addToExpression(String value) {
     //check num or oper
     if (opertaions.contains(value)) {
       //value => oper
       handleOperation(value);
+    } else if (value == '.') {
+      isPerviousDigitIsDot() ? null : storeNumbers(value);
     } else {
       //value => num
       storeNumbers(value);
@@ -35,12 +37,17 @@ class CalculatorVM extends ChangeNotifier {
     return isSecondOper;
   }
 
-  bool haveErroe() {
+  bool isPerviousDigitIsOperation() {
     return opertaions.contains(expression[expression.length - 1]);
   }
 
+  bool isPerviousDigitIsDot() {
+    //1..
+    return expression[expression.length - 1] == '.';
+  }
+
   handleOperation(String value) {
-    if (haveErroe()) {
+    if (isPerviousDigitIsOperation()) {
     } else {
       if (isSecOperation()) {
         //(12+12) +
@@ -75,7 +82,7 @@ class CalculatorVM extends ChangeNotifier {
     expression += value;
   }
 
-  double calcResult() {
+  num calcResult() {
     log((opertaions.contains(operation)).toString());
     switch (operation) {
       case '+':
@@ -88,6 +95,9 @@ class CalculatorVM extends ChangeNotifier {
         return double.parse(firstNum) / double.parse(secondNum);
       case '√':
         return double.parse(firstNum) * math.sqrt(double.parse(secondNum));
+
+      case '^':
+        return math.pow(double.parse(firstNum), double.parse(secondNum));
     }
 
     return 0;
