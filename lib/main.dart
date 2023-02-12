@@ -4,6 +4,7 @@ import 'package:calc/assets/constants.dart';
 import 'package:calc/assets/theme_data.dart';
 import 'package:calc/view_model/calculator.dart';
 import 'package:calc/view_model/setting.dart';
+import 'package:calc/views/offset.dart';
 import 'package:calc/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         create: (context) => SettingVM(),
         builder: (context, child) => ChangeNotifierProvider(
             create: (context) => CalculatorVM(),
-            child: MaterialApp(home: const Home())),
+            child: const MaterialApp(
+                debugShowCheckedModeBanner: false, home: const Home())),
       ),
     );
   }
@@ -38,194 +40,157 @@ class Home extends StatelessWidget {
     SettingVM settingProvider = Provider.of(context);
     CalculatorVM calcProvider = Provider.of(context);
     return Scaffold(
-        body: Stack(
-      children: [
-        Center(
-          child: SingleChildScrollView(
-            child: Container(
-              height: 100.h,
-              width: 100.w,
-              decoration: BoxDecoration(
-                  gradient: settingProvider.currentThemeData.scaffoldBG),
+        body: AnimatedContainer(
+      duration: const Duration(milliseconds: 5000),
+      curve: Curves.easeOutCirc,
+      width: 100.w,
+      decoration:
+          BoxDecoration(gradient: settingProvider.currentThemeData.scaffoldBG),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            //result
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: SizedBox(
+                height: 25.h,
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      calcProvider.expression,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.andika(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w800,
+                          color: settingProvider.currentThemeData.grey),
+                    )),
+              ),
+            ),
+            //buttons
+            SizedBox(
+              height: 75.h,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //result
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: SizedBox(
-                      height: 25.h,
-                      child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            calcProvider.expression,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.andika(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w800,
-                                color: settingProvider.currentThemeData.grey),
-                          )),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClearButton(),
+                      CustomButton(
+                          color: settingProvider
+                              .currentThemeData.optionalOperations,
+                          text: '√'),
+                      CustomButton(
+                          color: settingProvider
+                              .currentThemeData.optionalOperations,
+                          text: '^'),
+                      CustomButton(
+                          color:
+                              settingProvider.currentThemeData.basicOperations,
+                          text: 'X'),
+                    ],
                   ),
-                  //buttons
-                  SizedBox(
-                    height: 75.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomButton(
-                                color: settingProvider.currentThemeData.yellow,
-                                text: 'C'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.optionalOperations,
-                                text: '('),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.optionalOperations,
-                                text: ')'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.basicOperations,
-                                text: 'X'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.optionalOperations,
-                                text: '√'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.optionalOperations,
-                                text: '%'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.optionalOperations,
-                                text: '-'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.basicOperations,
-                                text: '/'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '7'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '8'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '9'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.basicOperations,
-                                text: '-'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '4'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '5'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.normalButton,
-                                text: '6'),
-                            CustomButton(
-                                color: settingProvider
-                                    .currentThemeData.basicOperations,
-                                text: '+'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: '1'),
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: '2'),
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: '3'),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: '.'),
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: '0'),
-                                    CustomButton(
-                                        color: settingProvider
-                                            .currentThemeData.normalButton,
-                                        text: 'R'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            ResultButton()
-                          ],
-                        )
-                      ],
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ModeButton(),
+                      CustomButton(
+                          color: settingProvider
+                              .currentThemeData.optionalOperations,
+                          text: '%'),
+                      CustomButton(
+                          color: settingProvider
+                              .currentThemeData.optionalOperations,
+                          text: '-'),
+                      CustomButton(
+                          color:
+                              settingProvider.currentThemeData.basicOperations,
+                          text: '/'),
+                    ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '7'),
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '8'),
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '9'),
+                      CustomButton(
+                          color:
+                              settingProvider.currentThemeData.basicOperations,
+                          text: '-'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '4'),
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '5'),
+                      CustomButton(
+                          color: settingProvider.currentThemeData.normalButton,
+                          text: '6'),
+                      CustomButton(
+                          color:
+                              settingProvider.currentThemeData.basicOperations,
+                          text: '+'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomButton(
+                                  color: settingProvider
+                                      .currentThemeData.normalButton,
+                                  text: '1'),
+                              CustomButton(
+                                  color: settingProvider
+                                      .currentThemeData.normalButton,
+                                  text: '2'),
+                              CustomButton(
+                                  color: settingProvider
+                                      .currentThemeData.normalButton,
+                                  text: '3'),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomButton(
+                                  color: settingProvider
+                                      .currentThemeData.normalButton,
+                                  text: '.'),
+                              CustomButton(
+                                  color: settingProvider
+                                      .currentThemeData.normalButton,
+                                  text: '0'),
+                              RemoveButton()
+                            ],
+                          ),
+                        ],
+                      ),
+                      ResultButton()
+                    ],
+                  )
                 ],
               ),
             ),
-          ),
+          ],
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
-          child: FloatingActionButton(
-            onPressed: () {
-              settingProvider.changeCurrentMode();
-            },
-            backgroundColor: settingProvider.currentThemeData.normalButton,
-            child: settingProvider.currentMode == darkModeKey
-                ? const Icon(
-                    Icons.sunny,
-                    color: Colors.yellow,
-                  )
-                : const Icon(
-                    Icons.nightlight,
-                    color: Colors.blue,
-                  ),
-          ),
-        ),
-      ],
+      ),
     ));
   }
 }
