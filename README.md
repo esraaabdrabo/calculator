@@ -1,16 +1,46 @@
-# calc
 
-A new Flutter project.
+## Lessons Learned
 
-## Getting Started
+- Inheritance (dark mode and light mode inherted from ThemeData class).
 
-This project is a starting point for a Flutter application.
+- How to handle different modes colors 
+   in calculator/lib/assets/theme_data.dart
+   you will find 3 classes
 
-A few resources to get you started if this is your first Flutter project:
+- parent class
+    
+    **store object from parent(ModeData) in provider since the whole application's colors changes from dark to light not only primary and secondary color**
+    
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    **when user change mode this object will change in setting provider  ModeData currentThemeData = DarkModeData();**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    **if you try to store darkThemeData() then replace that value to LightModeData() you will get an error because the variable currentThemeData already took darkThemeData type**
+
+    *the solution is Inheritance*
+
+- parent
+
+      class ModeData {
+      var basicOperationsColor ;
+      var normalButtonColor;
+      ModeData({
+          required this.basicOperations,
+          required this.normalButton }
+                );}
+
+- Children
+
+         class DarkModeData extends ModeData {
+            DarkModeData(): super(
+            basicOperations: const Color(0xff49335c)
+            normalButton: const Color(0xff404245),
+           );
+        }
+
+        class LightModeData extends ModeData {
+            LightModeData(): super(
+            basicOperations: const Color(0xffe1d5e9)
+            normalButton: const Color(0xfff3f5f7),
+           );
+        }
+
