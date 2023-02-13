@@ -1,4 +1,21 @@
 
+# Calculator
+
+Flutter Project 
+
+- provider with simple practice on OOP.
+
+
+
+## Features
+
+- Light/dark mode toggle
+- Cross platform
+
+
+
+
+
 ## Lessons Learned
 
 - Inheritance (dark mode and light mode inherted from ThemeData class).
@@ -7,7 +24,6 @@
    in calculator/lib/assets/theme_data.dart
    you will find 3 classes
 
-- parent class
     
     **store object from parent(ModeData) in provider since the whole application's colors changes from dark to light not only primary and secondary color**
     
