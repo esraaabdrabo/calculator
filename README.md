@@ -5,6 +5,11 @@ Flutter Project
 
 - provider with simple practice on OOP.
 
+# Screen Record
+
+
+https://user-images.githubusercontent.com/91227030/218349237-3ba85623-6a50-4983-aa42-d865a8cadc69.mp4
+
 
 
 ## Features
