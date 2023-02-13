@@ -34,7 +34,7 @@ https://user-images.githubusercontent.com/91227030/218349237-3ba85623-6a50-4983-
     **store object from parent(ModeData) in provider since the whole application's colors changes from dark to light not only primary and secondary color**
     
 
-    **when user change mode this object will change in setting provider  ModeData currentThemeData = DarkModeData();**
+    **when user change mode this object will be changed in setting provider  ModeData currentThemeData = DarkModeData();**
 
     **if you try to store darkThemeData() then replace that value to LightModeData() you will get an error because the variable currentThemeData already took darkThemeData type**
 
