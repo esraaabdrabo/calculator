@@ -4,6 +4,7 @@
 Flutter Project 
 
 - provider with simple practice on OOP.
+- the design : https://dribbble.com/shots/9631225--Design-for-DailyUi-Day004-Calculator
 
 # Screen Record
 
